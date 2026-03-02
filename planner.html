@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Day Planner</title>
+    <link rel="stylesheet" href="planner.css">
+</head>
+<body>
+
+    <div class="planner-container">
+        <header>
+            <h1>My Cozy Planner</h1>
+        </header>
+
+        <section class="section">
+            <h2>Braindump</h2>
+            <textarea id="braindump" placeholder="Type your thoughts here..."></textarea>
+        </section>
+
+        <div class="task-grid">
+            <div class="section restricted" data-limit="3" id="short-tasks">
+                <h2>Short Tasks (Max 3)</h2>
+                <input type="text" placeholder="Add a <10 min task..." class="task-input">
+                <ul class="task-list"></ul>
+            </div>
+
+            <div class="section restricted" data-limit="3" id="maintenance-tasks">
+                <h2>Maintenance (Max 3)</h2>
+                <input type="text" placeholder="Add a chore..." class="task-input">
+                <ul class="task-list"></ul>
+            </div>
+
+            <div class="section restricted" data-limit="3" id="fun-tasks">
+                <h2>Fun (Max 3)</h2>
+                <input type="text" placeholder="Add something fun..." class="task-input">
+                <ul class="task-list"></ul>
+            </div>
+        </div>
+
+        <section class="section" id="general-planning">
+            <h2>General Planning</h2>
+            <p class="hint">Use the arrow buttons or <b>Tab</b>/<b>Shift+Tab</b> to indent/untab.<br>Check the box to mark done; click the task to focus.<br>Drag tasks (or groups) to reorder.</p>
+            <input type="text" id="general-input" placeholder="Start planning...">
+            <ul id="general-list" class="task-list"></ul>
+        </section>
+    </div>
+
+    <script src="planner.js"></script>
+</body>
+</html>

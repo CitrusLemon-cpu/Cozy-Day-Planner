@@ -1,0 +1,141 @@
+:root {
+    --bg-color: #faf7f2;
+    --accent-color: #d4a373;
+    --text-color: #4a4e69;
+    --error-color: #e5989b;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.planner-container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    resize: vertical;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Indentation Classes (multiple levels) */
+.indent-level-1 { margin-left: 30px; color: #888; }
+.indent-level-2 { margin-left: 60px; color: #777; }
+.indent-level-3 { margin-left: 90px; color: #666; }
+/* fallback for any single-class use */
+.indent { margin-left: 30px; color: #888; }
+
+/* dragging styles */
+.task-item.dragging {
+    opacity: 0.4;
+}
+/* Shake Animation */
+.shake {
+    animation: shake 0.4s ease-in-out;
+    border-color: var(--error-color) !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+textarea {
+    display: block;          /* Removes the "text baseline" alignment issues */
+    width: 100%;             /* Ensures it spans the full container */
+    box-sizing: border-box;  /* Includes padding/border in the width calculation */
+    margin-top: 10px;        /* Adds a consistent gap below the title */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: inherit;    /* Ensures text inside matches the rest of the app */
+    resize: vertical;        /* Only allow vertical stretching to keep width stable */
+}
+
+/* Style for completed tasks */
+.completed {
+    text-decoration: line-through;
+    color: #a0a0a0;
+    opacity: 0.6;
+}
+
+/* Give the user a hint that they can click these */
+.task-item {
+    cursor: grab;
+    user-select: none; /* Prevents text highlighting while clicking */
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+.task-item:active {
+    cursor: grabbing;
+}
+
+/* group border to visually tie child items to parent */
+.task-item.indent-level-1,
+.task-item.indent-level-2,
+.task-item.indent-level-3 {
+    border-left: 2px solid #ccc;
+    padding-left: 6px;
+}
+
+/* checkbox at start */
+.task-item input.complete-checkbox {
+    margin-right: 8px;
+}
+
+/* indent/outdent button styles */
+.task-item .controls {
+    display: inline-flex;
+    margin-left: auto; /* push controls to the right */
+}
+.task-item .controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 2px 4px;
+    margin-left: 4px;
+}
+.task-item.dragging {
+    opacity: 0.4;
+}
+.task-item:hover {
+    background-color: #fdfaf6;
+}
