@@ -14,6 +14,91 @@ body {
     padding: 20px;
 }
 
+/* layout for planner + time blocker */
+.main-content {
+    display: flex;
+    width: 100%;
+}
+
+.time-blocker {
+    width: 160px;
+    border-left: 1px solid #ddd;
+    margin-left: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: #fafafa;
+}
+.time-blocker .hour-block {
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    padding: 4px;
+    font-size: 0.85em;
+    cursor: pointer;
+    position: relative;
+}
+.time-blocker .hour-label {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+}
+.time-blocker .event {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-left: 30px;
+    font-size: 0.8em;
+    color: white;
+}
+
+/* rendered time-block events inside the time-blocker */
+.time-blocker .tb-event {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    border-radius: 8px;
+    color: #fff;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    font-size: 0.85em;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* modal styles for creating/editing time blocks */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    z-index: 60;
+}
+.modal.hidden { display: none; }
+.modal-content {
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    width: 320px;
+}
+.modal-content h3 { margin-top: 0; }
+.modal-content label { display: block; margin-bottom: 8px; font-size: 0.9em; }
+.modal-content input[type="text"], .modal-content input[type="time"], .modal-content input[type="color"] {
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.modal-actions button { padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.modal-actions #evt-save { background: var(--accent-color); color: white; border: none; }
+.modal-actions #evt-cancel { background: transparent; border: 1px solid #ddd; }
+
 .planner-container {
     max-width: 800px;
     width: 100%;
@@ -86,6 +171,82 @@ textarea {
     padding: 10px;
     font-family: inherit;    /* Ensures text inside matches the rest of the app */
     resize: vertical;        /* Only allow vertical stretching to keep width stable */
+    overflow: hidden;        /* hide scrollbar when auto-expanding */
+}
+
+/* Braindump editor (contenteditable) */
+.braindump-toolbar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.braindump-toolbar button {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    font-size: 0.95em;
+}
+
+.braindump-toolbar button:hover {
+    background: #f5f5f5;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.braindump-toolbar button:active {
+    background: #efefef;
+}
+
+.braindump-editor {
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: inherit;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    outline: none;
+}
+
+/* Nested list styling */
+.braindump-editor ol {
+    list-style-type: decimal;
+}
+
+.braindump-editor ol ol {
+    list-style-type: lower-alpha;
+}
+
+.braindump-editor ol ol ol {
+    list-style-type: lower-roman;
+}
+
+.braindump-editor ul {
+    list-style-type: disc;
+}
+
+.braindump-editor ul ul {
+    list-style-type: circle;
+}
+
+.braindump-editor ul ul ul {
+    list-style-type: square;
+}
+
+.braindump-editor:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.1);
 }
 
 /* Style for completed tasks */
@@ -113,6 +274,51 @@ textarea {
 .task-item.indent-level-3 {
     border-left: 2px solid #ccc;
     padding-left: 6px;
+}
+
+/* input group for mobile-friendly add button */
+.input-group {
+    display: flex;
+    gap: 4px;
+}
+.input-group .add-btn {
+    width: 36px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+/* reuse delete button styles for general tasks */
+.task-item .delete-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #e5989b;
+    cursor: pointer;
+    font-size: 1em;
+}
+.task-item .delete-btn:hover {
+    color: var(--error-color);
+}
+.input-group .add-btn:active {
+    background: #c98959;
+}
+
+/* task-item delete button */
+.task-item .delete-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #e5989b;
+    cursor: pointer;
+    font-size: 1em;
+}
+.task-item .delete-btn:hover {
+    color: var(--error-color);
 }
 
 /* checkbox at start */

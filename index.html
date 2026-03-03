@@ -8,43 +8,81 @@
 </head>
 <body>
 
-    <div class="planner-container">
-        <header>
-            <h1>My Cozy Planner</h1>
-        </header>
+    <div class="main-content">
+        <div class="planner-container">
+            <header>
+                <h1>My Cozy Planner</h1>
+            </header>
 
         <section class="section">
             <h2>Braindump</h2>
-            <textarea id="braindump" placeholder="Type your thoughts here..."></textarea>
+            <div class="braindump-toolbar">
+                <button id="btn-bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                <button id="btn-italic" title="Italic (Ctrl+I)"><i>I</i></button>
+                <button id="btn-indent" title="Indent (Tab)">→</button>
+                <button id="btn-bullet" title="Bullet List">•</button>
+                <button id="btn-number" title="Numbered List">1.</button>
+            </div>
+            <p class="hint" style="font-size: 0.9em;"><b>Ctrl+B</b> bold, <b>Ctrl+I</b> italic, <b>Tab</b> indent, <b>Shift+Tab</b> outdent, <b>Backspace</b> at line start to exit list.<br><b>Ctrl+Shift+U</b> bullet, <b>Ctrl+Shift+O</b> numbered</p>
+            <div id="braindump" class="braindump-editor" contenteditable="true" role="textbox" aria-label="Braindump text area"></div>
         </section>
 
         <div class="task-grid">
             <div class="section restricted" data-limit="3" id="short-tasks">
                 <h2>Short Tasks (Max 3)</h2>
-                <input type="text" placeholder="Add a <10 min task..." class="task-input">
+                <div class="input-group">
+                    <input type="text" placeholder="Add a <10 min task..." class="task-input">
+                    <button class="add-btn">+</button>
+                </div>
                 <ul class="task-list"></ul>
             </div>
 
             <div class="section restricted" data-limit="3" id="maintenance-tasks">
                 <h2>Maintenance (Max 3)</h2>
-                <input type="text" placeholder="Add a chore..." class="task-input">
+                <div class="input-group">
+                    <input type="text" placeholder="Add a chore..." class="task-input">
+                    <button class="add-btn">+</button>
+                </div>
                 <ul class="task-list"></ul>
             </div>
 
             <div class="section restricted" data-limit="3" id="fun-tasks">
                 <h2>Fun (Max 3)</h2>
-                <input type="text" placeholder="Add something fun..." class="task-input">
+                <div class="input-group">
+                    <input type="text" placeholder="Add something fun..." class="task-input">
+                    <button class="add-btn">+</button>
+                </div>
                 <ul class="task-list"></ul>
             </div>
         </div>
 
         <section class="section" id="general-planning">
             <h2>General Planning</h2>
-            <p class="hint">Use the arrow buttons or <b>Tab</b>/<b>Shift+Tab</b> to indent/untab.<br>Check the box to mark done; click the task to focus.<br>Drag tasks (or groups) to reorder.</p>
-            <input type="text" id="general-input" placeholder="Start planning...">
+            <p class="hint">Use the arrow buttons or <b>Tab</b>/<b>Shift+Tab</b> to indent/untab.<br>Check the box to mark done; click the task to focus.<br>Drag tasks (or groups) to reorder. On mobile use + to add.</p>
+            <div class="input-group">
+                <input type="text" id="general-input" placeholder="Start planning...">
+                <button id="general-add" class="add-btn">+</button>
+            </div>
             <ul id="general-list" class="task-list"></ul>
         </section>
-    </div>
+        </div> <!-- planner-container -->
+        <div class="time-blocker" id="time-blocker"></div>
+        <!-- Event modal -->
+        <div id="event-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <h3 id="modal-title">Create Time Block</h3>
+                <label>Label<br><input type="text" id="evt-label" placeholder="Meeting"></label>
+                <label>Start<br><input type="time" id="evt-start"></label>
+                <label>End<br><input type="time" id="evt-end"></label>
+                <label>Color<br><input type="color" id="evt-color" value="#336699"></label>
+                <div class="modal-actions">
+                    <button id="evt-save">Save</button>
+                    <button id="evt-delete" class="danger" style="display:none">Delete</button>
+                    <button id="evt-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- main-content -->
 
     <script src="planner.js"></script>
 </body>
